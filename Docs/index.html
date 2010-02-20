@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Locate for MooTools</title>
+		<script type="text/javascript" src="mootools-core.js"></script>
+		<script type="text/javascript" src="../Source/Locate.js"></script>
+	</head>
+	<body>
+	
+		Location: <span id="coord">not located yet</span>
+		
+		<script type="text/javascript">
+			mtlocate = new Locate({
+				//loi: false,
+				onError: function(){
+					$("coord").set('html', "Your Browser does not support Location");
+				},
+				onLocate: function(position){
+					$("coord").set('html', "<a href='http://maps.google.com/?hl=en&q=loc:" + position.lat+","+position.long + "'>Auf Google Maps anzeigen</a>");
+				}
+			});
+		</script>
+	
+	</body>
+</html>
