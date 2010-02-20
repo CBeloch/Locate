@@ -7,19 +7,22 @@
 	</head>
 	<body>
 	
-		Location: <span id="coord">not located yet</span>
+		Location: <span id="coord"></span> <button id="stop">Stop Watcher</button>
 		
 		<script type="text/javascript">
 			mtlocate = new Locate({
 				//loi: false,
-				onError: function(){
-					$("coord").set('html', "Your Browser does not support Location");
+				loiType: 'watch',
+				onError: function(error){
+					$("coord").set('html', error);
 				},
 				onLocate: function(position){
-					$("coord").set('html', "<a href='http://maps.google.com/?hl=en&q=loc:" + position.lat+","+position.long + "'>Auf Google Maps anzeigen</a>");
+					$("coord").set('html', $("coord").get('html')+position.lat+","+position.long+"<br>");
 				}
 			});
+			$('stop').addEvent('click', function(){
+				mtlocate.stopWatcher();
+			});
 		</script>
-	
 	</body>
 </html>
