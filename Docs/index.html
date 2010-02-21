@@ -4,25 +4,94 @@
 		<title>Locate for MooTools</title>
 		<script type="text/javascript" src="mootools-core.js"></script>
 		<script type="text/javascript" src="../Source/Locate.js"></script>
+		
+		<style type="text/css">
+		html, body {
+			font-size: 14px;
+			font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+			background: #343434;
+		}
+		a {
+			text-decoration: none;
+			font-weight: bold;
+			color: #6eb7e9;
+		}
+		#content {
+			background: white;
+			-webkit-box-shadow: 0px 0px 10px black;
+			-moz-box-shadow: 0px 0px 10px black;
+
+			margin: 0px auto;
+			padding: 10px;
+			min-height: 100%;
+			width: 750px;
+		}
+		code {
+			font-family: "Courier New", Courier, Monaco, monospace;
+			margin: 10px auto;
+			border-color: #484848;
+			border-style: dashed;
+			border-width: 1px;
+			padding: 10px;
+			display: block;
+			width: 90%;
+			background-color: #e1e1e1;
+		}
+		#foot {
+			text-align: right;
+		}
+		</style>
 	</head>
 	<body>
+		<div id="content">
+			<img src="images/logo.jpg" alt="logo" width="200" height="100" style="margin-bottom: 10px;" /><br>
+			
+			Locate is a MooTools class that gives you access to the HTML5 geolocation API.<br>
+			In my oppinion it is a little bit difficult to handle so I wrote this little class for MooTools.<br>
+			Now you can access your vistors geolocation as long as his browser does support this feature.
+			
+			<h1>How to use</h1>
+			First of all you need to include the MooTools Core and the Locate.js into your project
+			
+			<code>
+				&lt;script type="text/javascript" src="js/mootools-core.js"&gt;&lt;/script&gt;<br>
+				&lt;script type="text/javascript" src="js/Locate.js"&gt;&lt;/script&gt;
+			</code>
+			
+			With the basic options, it locates your vistor once on init
+			
+			<code>
+				mtlocate = new Locate({<br>
+				&nbsp;	onError: function(error){<br>
+				&nbsp;&nbsp;		$("coord").set('html', error);<br>
+				&nbsp;	},<br>
+				&nbsp;	onLocate: function(position){<br>
+				&nbsp;&nbsp;		$("coord").set('html', position.lat+","+position.long);<br>
+				&nbsp;	}<br>
+				});	
+			</code>
+			
+			Don't want directly start locating on init? No problem!<br>
+			Here is an example of frequently check the position by the press of a button.
+			
+			<code>
+				var location = new Locate({<br>
+				&nbsp;	loi: false<br>
+				});<br><br>
 	
-		Location: <span id="coord"></span> <button id="stop">Stop Watcher</button>
-		
-		<script type="text/javascript">
-			mtlocate = new Locate({
-				//loi: false,
-				loiType: 'watch',
-				onError: function(error){
-					$("coord").set('html', error);
-				},
-				onLocate: function(position){
-					$("coord").set('html', $("coord").get('html')+position.lat+","+position.long+"<br>");
-				}
-			});
-			$('stop').addEvent('click', function(){
-				mtlocate.stopWatcher();
-			});
-		</script>
+				// start locating later in your code using this line<br>
+				// you can also use location.locate();<br>
+				location.watcher();
+			</code>
+			
+			<h1>Example</h1>
+			<h2>Watcher</h2>
+			If you use an iPhone or another mobile device supporting HTML5 geolocation, try moving around and watch the coordinates change
+			<iframe style="width: 90%; height: 300px; margin: 30px;" src="http://mootools.net/shell/yJBdt/1/embedded/"></iframe>
+			
+			<div id="foot">by <a href="http://blog.cbeloch.de" title="cbeloch.de Blog" target="_blank">cbeloch</a></div>
+
+		</div>
+
 	</body>
 </html>
