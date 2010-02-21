@@ -9,7 +9,7 @@ There are so many possibilities by using location based information in your weba
 Now you can build your own Google Buzz clone with MooTools power.
 Let me know on how you used it in your webapplication.
 
-![Screenshot](http://locate.cbeloch.de/Docs/images/logo.png)
+![Screenshot](http://locate.cbeloch.de/Docs/images/logo.jpg)
 
 How to use
 ----------
