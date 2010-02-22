@@ -2,8 +2,6 @@
 <html>
 	<head>
 		<title>Locate for MooTools</title>
-		<script type="text/javascript" src="mootools-core.js"></script>
-		<script type="text/javascript" src="../Source/Locate.js"></script>
 		
 		<style type="text/css">
 		html, body {
@@ -66,7 +64,7 @@
 				&nbsp;&nbsp;		$("coord").set('html', error);<br>
 				&nbsp;	},<br>
 				&nbsp;	onLocate: function(position){<br>
-				&nbsp;&nbsp;		$("coord").set('html', position.lat+","+position.long);<br>
+				&nbsp;&nbsp;		$("coord").set('html', position.latitude+","+position.longitude);<br>
 				&nbsp;	}<br>
 				});	
 			</code>
@@ -87,7 +85,7 @@
 			<h1>Example</h1>
 			<h2>Watcher</h2>
 			If you use an iPhone or another mobile device supporting HTML5 geolocation, try moving around and watch the coordinates change
-			<iframe style="width: 90%; height: 300px; margin: 30px;" src="http://mootools.net/shell/yJBdt/1/embedded/"></iframe>
+			<iframe style="width: 90%; height: 300px; margin: 30px;" src="http://mootools.net/shell/yJBdt/4/embedded/"></iframe>
 			
 			<div id="foot">by <a href="http://blog.cbeloch.de" title="cbeloch.de Blog" target="_blank">cbeloch</a></div>
 
