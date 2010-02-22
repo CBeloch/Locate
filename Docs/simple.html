@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Locate for MooTools</title>
+		<meta name="viewport" content="width = device-width">
+        <script type="text/javascript" src="mootools-core.js"></script>
+        <script type="text/javascript" src="../Source/Locate.js"></script>
+    </head>
+    <body>
+    	
+    	<h2 id="device"></h2>
+        Error Log: <span id="error"></span><br>
+        Coord: <span id="coord"></span><br>
+        Accuracy: <span id="accur"></span><br>
+        Heading: <span id="head"></span><br>
+        Speed: <span id="speed"></span><br>
+        
+        
+        <script type="text/javascript">
+            mtlocate = new Locate({
+                loi: false,
+                onError: function(error){
+                    $("error").set('html', $("error").get('html')+error+"<br>");
+                },
+                onLocate: function(position){
+                    $("device").set('html', Browser.Engine.name + " " + Browser.Engine.version + " " + Browser.Platform.name);
+                    $("coord").set('html', position.lat+","+position.long);
+                    $("accur").set('html', position.accuracy+"m");
+                    $("head").set('html', position.heading);
+                    $("speed").set('html', position.speed+"m/s");
+                }
+            });
+            mtlocate.watcher();
+        </script>
+    
+    </body>
+</html>
