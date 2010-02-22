@@ -25,9 +25,13 @@ var Locate = new Class({
 	
 	initialize: function(options){
 		this.setOptions(options);
-		
-		thisBind = this; // Need some bind variable for later, don't know it better
-		
+				
+		if(!navigator.geolocation)  
+		{
+			this.fireEvent("error", "geolocation is not supported");
+			return false;
+		}
+
 		if(this.options.loi){
 			switch(this.options.loiType){
 				case 'locate':
@@ -43,38 +47,28 @@ var Locate = new Class({
 	},
 	
 	setPosition: function(position){
-		thisBind.position = {
+		this.position = {
 			lat: position.coords.latitude,
 			long: position.coords.longitude
 		};
 	
-		thisBind.fireEvent("locate", thisBind.position);		
+		this.fireEvent("locate", this.position);		
 	},
 	handleError: function(error){
 		this.fireEvent("error", error.message)
 	},
 	
 	locate: function(){
-		if (navigator.geolocation)    
-			navigator.geolocation.getCurrentPosition(this.setPosition, this.handleError);
-		else
-			this.fireEvent("error", "geolocation is not supported");
+		navigator.geolocation.getCurrentPosition(this.setPosition.bind(this), this.handleError);
 	},
 	
 	watcher: function(){
 		// have to call it 'watcher'
 		// 'watch' is causing errors on Firefox, MobileSafari works perfect
-		if (navigator.geolocation)    
-			this.watchId = navigator.geolocation.watchPosition(this.setPosition, this.handleError);
-		else
-			this.fireEvent("error", "geolocation is not supported");
+		this.watchId = navigator.geolocation.watchPosition(this.setPosition.bind(this), this.handleError);
 	},
 	
 	stopWatcher: function(){
-		if (navigator.geolocation)    
-			this.watchId = navigator.geolocation.clearWatch(this.watchId);
-		else
-			this.fireEvent("error", "geolocation is not supported");
-		
+		this.watchId = navigator.geolocation.clearWatch(this.watchId);		
 	}
 });
