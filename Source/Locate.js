@@ -47,19 +47,7 @@ var Locate = new Class({
 	},
 	
 	setPosition: function(position){
-		this.position = {
-			// For the future I use the full name for the variables!
-			// I keep the old long and lat variables for compatibility reasons
-			lat: position.coords.latitude,
-			latitude: position.coords.latitude,
-			long: position.coords.longitude,
-			longitude: position.coords.longitude,
-			altitude: position.coords.altitude, // null if not supported, meters above the WGS84 ellipsoid
-			accuracy: position.coords.accuracy,	// specified in meters
-			heading: position.coords.heading, // null if not supported, specified in degrees counting clockwise to true north
-			speed: position.coords.speed // null if not supported, specified in meters per second 
-		};
-	
+		this.position = position.coords;
 		this.fireEvent("locate", this.position);		
 	},
 	handleError: function(error){

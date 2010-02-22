@@ -24,7 +24,7 @@
                 },
                 onLocate: function(position){
                     $("device").set('html', Browser.Engine.name + " " + Browser.Engine.version + " " + Browser.Platform.name);
-                    $("coord").set('html', position.lat+","+position.long);
+                    $("coord").set('html', position.latitude+","+position.longitude);
                     $("accur").set('html', position.accuracy+"m");
                     $("head").set('html', position.heading);
                     $("speed").set('html', position.speed+"m/s");
