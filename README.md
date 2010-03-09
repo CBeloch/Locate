@@ -57,6 +57,8 @@ The position data given with the event 'locate' looks like this:
   - null if not supported, meters above the WGS84 ellipsoid
 * position.accuracy
   - specified in meters
+* position.altitudeAccuracy
+  - specified in meters
 * position.heading
   - null if not supported, specified in degrees counting clockwise to true north
 * position.speed

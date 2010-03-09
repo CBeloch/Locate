@@ -14,6 +14,8 @@
         Accuracy: <span id="accur"></span><br>
         Heading: <span id="head"></span><br>
         Speed: <span id="speed"></span><br>
+        Altitude: <span id="altitude"></span><br>
+        Altitude Accuracy: <span id="altitudea"></span><br>
         
         
         <script type="text/javascript">
@@ -28,6 +30,8 @@
                     $("accur").set('html', position.accuracy+"m");
                     $("head").set('html', position.heading);
                     $("speed").set('html', position.speed+"m/s");
+                    $("altitude").set('html', position.altitude+"m");
+                    $("altitudea").set('html', position.altitudeAccuracy+"m");
                 }
             });
             mtlocate.watcher();
