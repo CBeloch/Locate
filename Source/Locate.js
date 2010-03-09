@@ -20,7 +20,12 @@ var Locate = new Class({
 	Implements: [Options, Events],
 	options: {
 		loi: true, // loi = locate on init
-		loiType: 'locate' // locate OR watch
+		loiType: 'locate', // locate OR watch
+		positionOptions: {
+			enableHighAccuracy: false, // may result in slower response times or increased power consumption if true
+			timeout: 0, // expressed in milliseconds, can correspond in an error event on timeout
+			maximumAge: 0 // specified time in milliseconds
+		}
 	},
 	
 	initialize: function(options){
@@ -55,13 +60,13 @@ var Locate = new Class({
 	},
 	
 	locate: function(){
-		navigator.geolocation.getCurrentPosition(this.setPosition.bind(this), this.handleError);
+		navigator.geolocation.getCurrentPosition(this.setPosition.bind(this), this.handleError, this.options.positionOptions);
 	},
 	
 	watcher: function(){
 		// have to call it 'watcher'
 		// 'watch' is causing errors on Firefox, MobileSafari works perfect
-		this.watchId = navigator.geolocation.watchPosition(this.setPosition.bind(this), this.handleError);
+		this.watchId = navigator.geolocation.watchPosition(this.setPosition.bind(this), this.handleError, this.options.positionOptions);
 	},
 	
 	stopWatcher: function(){
