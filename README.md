@@ -61,5 +61,9 @@ The position data given with the event 'locate' looks like this:
   - specified in meters
 * position.heading
   - null if not supported, specified in degrees counting clockwise to true north
+* position.headingStr
+  - not part of the official W3C specifications!
+  - can be null
+  - returns the heading direction as string (cardinal direction): "N", "NE", "E" etc.
 * position.speed
   - null if not supported, specified in meters per second
