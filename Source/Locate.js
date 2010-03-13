@@ -52,7 +52,17 @@ var Locate = new Class({
 	},
 	
 	setPosition: function(position){
-		this.position = position.coords;
+		this.position = {
+			latitude: position.coords.latitude,
+			longitude: position.coords.longitude,
+			accuracy: position.coords.accuracy, // specified in meters
+			altitude: position.coords.altitude, // null if not supported, meters above the WGS84 ellipsoid
+			altitudeAccuracy: position.coords.altitudeAccuracy, // specified in meters
+			heading: position.coords.heading, // null if not supported, specified in degrees counting clockwise to true nort
+			speed: position.coords.speed // null if not supported, specified in meters per second
+		};
+		
+		//this.position = position.coords;
 		this.position.cardinalDirection = this.cardinalDirection();
 		this.fireEvent("locate", this.position);		
 	},
