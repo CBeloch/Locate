@@ -22,9 +22,9 @@ var Locate = new Class({
 		loi: true, // loi = locate on init
 		loiType: 'locate', // locate OR watch
 		positionOptions: {
-			enableHighAccuracy: false, // may result in slower response times or increased power consumption if true
+			enableHighAccuracy: true, // may result in slower response times or increased power consumption if true
 			timeout: 0, // expressed in milliseconds, can correspond in an error event on timeout
-			maximumAge: 0 // specified time in milliseconds
+			maximumAge: 500 // specified time in milliseconds
 		}
 	},
 	
@@ -79,19 +79,19 @@ var Locate = new Class({
 			return null;
 		if(this.position.heading >= 337.5 || (this.position.heading >= 0 && this.position.heading <= 22.5))
 			return "N";
-		if(this.position.heading >= 22.5 || this.position.heading <= 67.5)
+		if(this.position.heading >= 22.5 && this.position.heading <= 67.5)
 			return "NE";
-		if(this.position.heading >= 67.5 || this.position.heading <= 112.5)
+		if(this.position.heading >= 67.5 && this.position.heading <= 112.5)
 			return "E";
-		if(this.position.heading >= 112.5 || this.position.heading <= 157.5)
+		if(this.position.heading >= 112.5 && this.position.heading <= 157.5)
 			return "SE";
-		if(this.position.heading >= 157.5 || this.position.heading <= 202.5)
+		if(this.position.heading >= 157.5 && this.position.heading <= 202.5)
 			return "S";
-		if(this.position.heading >= 202.5 || this.position.heading <= 247.5)
+		if(this.position.heading >= 202.5 && this.position.heading <= 247.5)
 			return "SW";
-		if(this.position.heading >= 247.5 || this.position.heading <= 292.5)
+		if(this.position.heading >= 247.5 && this.position.heading <= 292.5)
 			return "W";
-		if(this.position.heading >= 292.5 || this.position.heading <= 337.5)
+		if(this.position.heading >= 292.5 && this.position.heading <= 337.5)
 			return "NW";
 	}
 });
