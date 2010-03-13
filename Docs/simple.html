@@ -11,11 +11,12 @@
     	<h2 id="device"></h2>
         Error Log: <span id="error"></span><br>
         Coord: <span id="coord"></span><br>
-        Accuracy: <span id="accur"></span><br>
-        Heading: <span id="head"></span><br>
-        Speed: <span id="speed"></span><br>
-        Altitude: <span id="altitude"></span><br>
-        Altitude Accuracy: <span id="altitudea"></span><br>
+        Accuracy: <span id="accur"></span> m<br>
+        Heading: <span id="head"></span>&deg; (<span id="carddir"></span>)<br>
+        Speed: <span id="speed"></span> m/s<br>
+        Altitude: <span id="altitude"></span> m<br>
+        Altitude Accuracy: <span id="altitudea"></span> m<br>
+        Distance: <span id="distance"></span> km<br>
         
         
         <script type="text/javascript">
@@ -27,12 +28,14 @@
                 },
                 onLocate: function(position){
                     $("device").set('html', Browser.Engine.name + " " + Browser.Engine.version + " " + Browser.Platform.name);
-                    $("coord").set('html', position.latitude+","+position.longitude);
-                    $("accur").set('html', position.accuracy+"m");
-                    $("head").set('html', position.heading+"&deg; - " + position.cardinalDirection);
-                    $("speed").set('html', position.speed+"m/s");
-                    $("altitude").set('html', position.altitude+"m");
-                    $("altitudea").set('html', position.altitudeAccuracy+"m");
+                    $("coord").set('html', position.latitude+", "+position.longitude);
+                    $("accur").set('html', position.accuracy);
+                    $("head").set('html', position.heading);
+                    $("carddir").set('html', position.cardinalDirection);
+                    $("speed").set('html', position.speed);
+                    $("altitude").set('html', position.altitude);
+                    $("altitudea").set('html', position.altitudeAccuracy);
+                    $("distance").set('html', this.distanceTo(37.3316591,-122.0301778)); // Infinite Loop
                 }
             });
         </script>

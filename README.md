@@ -46,6 +46,17 @@ Don't want to locate directly on initializing the Class? No problem!
 	// you can also use location.watcher();
 	location.locate();
 
+Want to get the distance from the current position to another?
+No problem, the function distanceTo() returns the distance in km:
+
+	#JS
+	var location = new Locate({
+		loiType: 'watch',
+		onLocate: function(position){
+			$("distance").set('html', this.distanceTo(37.3316591,-122.0301778));
+		}
+	});
+
 position data
 -------------
 
