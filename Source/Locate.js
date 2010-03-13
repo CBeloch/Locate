@@ -53,7 +53,7 @@ var Locate = new Class({
 	
 	setPosition: function(position){
 		this.position = position.coords;
-		this.position.headingStr = this.headingString();
+		this.position.cardinalDirection = this.cardinalDirection();
 		this.fireEvent("locate", this.position);		
 	},
 	handleError: function(error){
@@ -74,7 +74,7 @@ var Locate = new Class({
 		this.watchId = navigator.geolocation.clearWatch(this.watchId);		
 	},
 	
-	headingString: function(){
+	cardinalDirection: function(){
 		if(!this.position.heading) // if heading is null
 			return null;
 		if(this.position.heading >= 337.5 || (this.position.heading >= 0 && this.position.heading <= 22.5))

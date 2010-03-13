@@ -20,7 +20,8 @@
         
         <script type="text/javascript">
             mtlocate = new Locate({
-                loi: false,
+                loi: true,
+                loiType: 'watch',
                 onError: function(error){
                     $("error").set('html', $("error").get('html')+error+"<br>");
                 },
@@ -28,13 +29,12 @@
                     $("device").set('html', Browser.Engine.name + " " + Browser.Engine.version + " " + Browser.Platform.name);
                     $("coord").set('html', position.latitude+","+position.longitude);
                     $("accur").set('html', position.accuracy+"m");
-                    $("head").set('html', position.heading+"&deg; - " + position.headingStr);
+                    $("head").set('html', position.heading+"&deg; - " + position.cardinalDirection);
                     $("speed").set('html', position.speed+"m/s");
                     $("altitude").set('html', position.altitude+"m");
                     $("altitudea").set('html', position.altitudeAccuracy+"m");
                 }
             });
-            mtlocate.watcher();
         </script>
     
     </body>
