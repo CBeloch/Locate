@@ -9,7 +9,7 @@ authors:
 - Christopher Beloch
 
 requires: 
-  core:1.2.4
+  core/1.2.4: '*'
 
 provides: [Locate]
 
