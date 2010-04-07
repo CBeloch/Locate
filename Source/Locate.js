@@ -103,23 +103,5 @@ var Locate = new Class({
 			return "W";
 		if(this.position.heading >= 292.5 && this.position.heading <= 337.5)
 			return "NW";
-	},
-	
-	distanceTo: function(dlat, dlong){
-		if(!this.position)
-			return null;
-	
-		// Used this: http://www.movable-type.co.uk/scripts/latlong.html
-		
-		earthRadius = 6371; // km
-		dLat = (dlat-this.position.latitude) * Math.PI/180 ;
-		dLon = (dlong-this.position.longitude) * Math.PI/180 ; 
-		a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-			Math.cos(this.position.latitude * Math.PI/180 ) * Math.cos(this.position.longitude * Math.PI/180 ) * 
-			Math.sin(dLon/2) * Math.sin(dLon/2); 
-		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-		distance = earthRadius * c;
-		
-		return distance;	
 	}
 });
