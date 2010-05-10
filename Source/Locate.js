@@ -52,7 +52,7 @@ var Locate = new Class({
 	},
 	
 	setPosition: function(position){
-		this.position = {
+		pos = {
 			latitude: position.coords.latitude,
 			longitude: position.coords.longitude,
 			accuracy: position.coords.accuracy, // specified in meters
@@ -62,8 +62,15 @@ var Locate = new Class({
 			speed: position.coords.speed // null if not supported, specified in meters per second
 		};
 		
-		//this.position = position.coords;
-		this.position.cardinalDirection = this.cardinalDirection();
+		if(this.position)
+			$extend(this.position, pos);
+		else
+			this.position = pos;
+		
+		$extend(this.position, {
+			cardinalDirection: this.cardinalDirection()
+		});
+		
 		this.fireEvent("locate", this.position);		
 	},
 	handleError: function(error){

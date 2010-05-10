@@ -78,3 +78,16 @@ The position data given with the event 'locate' looks like this:
   - returns the heading direction as string (cardinal direction): "N", "NE", "E" etc.
 * position.speed
   - null if not supported, specified in meters per second
+
+If you use Locate.Extras, you can also use
+
+* position.address
+  - returns your current address based on GMaps
+  - If you want to use this feature, use this.address() within the onLocate function
+  - You have to use the watcher method atm, working on a fix
+  
+ToDo
+----
+
+* make position.address work without watcher method
+* find an alternative to GMaps

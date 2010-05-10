@@ -40,5 +40,21 @@ Locate.implement({
 		distance = earthRadius * c;
 		
 		return distance;	
+	},
+	
+	address: function(){
+		// This function requires an initialized GMaps (Google Maps)
+		if(!this.geocoder)
+			this.geocoder = new GClientGeocoder();
+		
+		latlng = new GLatLng(this.position.latitude,this.position.longitude);
+		this.geocoder.getLocations(latlng, this.setAddress.bind(this));
+	},
+	
+	setAddress: function(response){
+		$extend(this.position, {
+			address: response.Placemark[0].address
+		});
 	}
+	
 });
