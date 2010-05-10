@@ -2,7 +2,7 @@
 ---
 
 script: Locate.Extras.js
-version: 1.2
+version: 1.3
 description: With the Locate.Extras class you can do more things like calculating the distance to another position or get the address for the current position
 license: MIT-style
 authors:

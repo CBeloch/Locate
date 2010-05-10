@@ -2,7 +2,7 @@
 ---
 
 script: Locate.js
-version: 1.2
+version: 1.3
 description: With the Locate class you can retrieve the current position of your visitors
 license: MIT-style
 authors:
