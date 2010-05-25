@@ -23,7 +23,7 @@ var Locate = new Class({
 		loiType: 'locate', // locate OR watch
 		positionOptions: {
 			enableHighAccuracy: true, // may result in slower response times or increased power consumption if true
-			timeout: 0, // expressed in milliseconds, can correspond in an error event on timeout
+			timeout: 30000, // expressed in milliseconds, can correspond in an error event on timeout
 			maximumAge: 5000 // specified time in milliseconds
 		}
 	},
