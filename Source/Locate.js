@@ -88,7 +88,11 @@ var Locate = new Class({
 	watcher: function(){
 		// have to call it 'watcher'
 		// 'watch' is causing errors on Firefox, MobileSafari works perfect
-		this.watchId = navigator.geolocation.watchPosition(this.setPosition.bind(this), this.handleError.bind(this), this.options.positionOptions);
+		this.watchId = navigator.geolocation.watchPosition(
+			this.setPosition.bind(this),
+			this.handleError.bind(this),
+			this.options.positionOptions
+		);
 	},
 	
 	stopWatcher: function(){
@@ -96,23 +100,28 @@ var Locate = new Class({
 	},
 	
 	cardinalDirection: function(){
-		if(!this.position.heading) // if heading is null
+		if (! $defined(this.position.heading))
 			return null;
-		if(this.position.heading >= 337.5 || (this.position.heading >= 0 && this.position.heading <= 22.5))
+			
+		var heading = this.position.heading % 360;
+		
+		if (heading <= 22.5)
 			return "N";
-		if(this.position.heading >= 22.5 && this.position.heading <= 67.5)
+		if (heading <= 67.5)
 			return "NE";
-		if(this.position.heading >= 67.5 && this.position.heading <= 112.5)
+		if (heading <= 112.5)
 			return "E";
-		if(this.position.heading >= 112.5 && this.position.heading <= 157.5)
+		if (heading <= 157.5)
 			return "SE";
-		if(this.position.heading >= 157.5 && this.position.heading <= 202.5)
+		if (heading <= 202.5)
 			return "S";
-		if(this.position.heading >= 202.5 && this.position.heading <= 247.5)
+		if (heading <= 247.5)
 			return "SW";
-		if(this.position.heading >= 247.5 && this.position.heading <= 292.5)
+		if (heading <= 292.5)
 			return "W";
-		if(this.position.heading >= 292.5 && this.position.heading <= 337.5)
+		if (heading <= 337.5)
 			return "NW";
+			
+		return "N";
 	}
 });
