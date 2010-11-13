@@ -1,13 +1,7 @@
 Locate
 ======
 
-With Locate you can easily access a visitors geolocation if his browser supports this feature.
-The basic geolocation API is a bit complicated (check [W3C Geolocation API Specification](http://www.w3.org/TR/geolocation-API/) for more info) in my oppinion.
-I hope I can make it easier to handle with all the data by using this little MooTools class.
-There are so many possibilities by using location based information in your webapp.
-
-Now you can build your own Google Buzz clone with MooTools power.
-Let me know on how you used it in your webapplication.
+The Locate class is an easy-to-use MooTools interface over the W3C's Geolocation API.
 
 ![Screenshot](http://locate.cbeloch.de/Docs/images/logo.jpg)
 
@@ -18,8 +12,7 @@ Include the Locate.js in your project.
 
 Use Code like this:
 
-	#JS
-	var location = new Locate({
+	var myLocator = new Locate({
 		onLocate: function(position){
 			alert('latitude: ' + position.latitude, '; longitude: ' + position.longitude + '; accuracy: ' + position.accuracy);
 		}
@@ -27,36 +20,24 @@ Use Code like this:
 	
 _See below for more details about `position` fields._
 
-Want to frequently get the position (watch your visitor move)? 
+Want to frequently get the position (observe your visitor move)? 
 
-	#JS
 	var location = new Locate({
-		loiType: 'watch',
 		onLocate: function(position){
-			// Do stuff with the position data
+			// do stuff with the position data
 		}
-	});
+	}).observe();
 
-Don't want to locate directly on initializing the Class? No problem!
+Locating is deactivated by default, since this would display a request to the user to share its location, possibly through a modal (Safari 5), which is aggressive behaviour and lowers your chances of the user accepting to share its location.
+However, if you want to locate your user immediately on instantiation, simply call `locate()` right after init :
 
-	#JS
-	var location = new Locate({
-		loi: false
-	});
-	
-	// start locating later in your code using this line
-	// you can also use location.watcher();
-	location.locate();
+	var myLocator = new Locate().locate();
 
 Want to get the distance from the current position to another?
 No problem, the function distanceTo() returns the distance in km:
 
-	#JS
-	var location = new Locate({
-		loiType: 'watch',
-		onLocate: function(position){
-			$("distance").set('html', this.distanceTo(37.3316591, -122.0301778));
-		}
+	myLocator.addEvent('locate', function(position) {
+		$('distance').set('html', this.distanceTo(37.3316591, -122.0301778));
 	});
 
 Position data
@@ -67,21 +48,20 @@ The position data given with the event 'locate' looks like this:
 * position.latitude
 * position.longitude
 * position.altitude
-  - null if not supported, meters above the WGS84 ellipsoid
+  - meters above the WGS84 ellipsoid, or `null` if not supported
 * position.accuracy
   - specified in meters
 * position.altitudeAccuracy
   - specified in meters
 * position.heading
-  - null if not supported, specified in degrees counting clockwise to true north
+  - specified in degrees counting clockwise to true north, or `null` if not supported
 * position.cardinalDirection
   - not part of the official W3C specifications!
-  - can be null
-  - returns the heading direction as string (cardinal direction): "N", "NE", "E" etc.
+  - returns the heading direction as string (cardinal direction): "N", "NE", "E"… or `null` in case position.heading is not available
 * position.speed
-  - null if not supported, specified in meters per second
+  - specified in meters per second, or `null` if not supported
 
-If you use Locate.Extras, you can also use
+If Locate.Extras is included, the following is also available:
 
 * position.address
   - returns your current address based on GMaps

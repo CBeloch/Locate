@@ -2,8 +2,8 @@
 ---
 
 script: Locate.js
-version: 1.4
-description: The Locate class is an easy-to-use MooTools interface over the W3C's Geolocation API.
+version: 1.4 {MSG}
+description: An easy-to-use MooTools interface over the W3C's Geolocation API.
 license: MIT-style
 authors:
 - Christopher Beloch
@@ -23,14 +23,11 @@ var Locate = new Class({
 	* - error({code: Number, message: String})
 	*		`code` is one of the [W3C's Geolocation API](http://dev.w3.org/geo/api/spec-source-v2.html#position_error_interface) or one of:
 	*		- -1: browser does not support geolocation
-	*		- -2: inner Locate configuration error
 	*/
 	Implements: [Options, Events],
 	
 	options: {
-		loi: true, // loi = locate on init
-		loiType: 'locate', // locate OR watch
-		positionOptions: {
+		position: {
 			enableHighAccuracy: true, // may result in slower response times or increased power consumption if true
 			timeout: 10000, // expressed in milliseconds, can correspond in an error event on timeout
 			maximumAge: 5000 // specified time in milliseconds
@@ -48,19 +45,6 @@ var Locate = new Class({
 		if (! navigator.geolocation) {
 			this.fireEvent('error', {code: -1, message: "Your browser does not support geolocation."});
 			return false;
-		}
-
-		if (this.options.loi) {
-			switch (this.options.loiType) {
-				case 'locate':
-					this.locate();
-					break;
-				case 'watch':
-					this.watcher();
-					break;
-				default:
-					this.fireEvent('error', {code: -2, message: 'Configuration error (LOI)'});
-			}
 		}
 	},
 	
@@ -81,13 +65,16 @@ var Locate = new Class({
 	
 	locate: function(){
 		$clear(this.timeout);
-		this.timeout = this.fireEvent.delay(this.options.positionOptions.timeout, this, ['error', { code: 3, message: 'Timeout' }]);
-		navigator.geolocation.getCurrentPosition(this.setPosition.bind(this), this.handleError.bind(this), this.options.positionOptions);
+		this.timeout = this.fireEvent.delay(this.options.position.timeout, this, ['error', { code: 3, message: 'Timeout' }]);
+		
+		navigator.geolocation.getCurrentPosition(
+			this.setPosition.bind(this),
+			this.handleError.bind(this),
+			this.options.position
+		);
 	},
 	
-	watcher: function(){
-		// have to call it 'watcher'
-		// 'watch' is causing errors on Firefox, MobileSafari works perfect
+	observe: function(){
 		this.watchId = navigator.geolocation.watchPosition(
 			this.setPosition.bind(this),
 			this.handleError.bind(this),
@@ -95,7 +82,7 @@ var Locate = new Class({
 		);
 	},
 	
-	stopWatcher: function(){
+	stopObserving: function(){
 		this.watchId = navigator.geolocation.clearWatch(this.watchId);		
 	},
 	
