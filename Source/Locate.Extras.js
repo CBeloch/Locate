@@ -10,8 +10,9 @@ authors:
 
 requires: 
   core/1.2.4: '*'
+  Google Maps API v2 for address()
 
-provides: [Locate.distanceTo()]
+provides: [Locate.distanceTo(), Locate.address()]
 
 ...
 */
