@@ -38,10 +38,9 @@ var Locate = new Class({
 	},
 
 /*	//instance variables
-
-	position: null,
 	timeout: null, //some browsers do not implement the "timeout" option, so we have to handle it ourselves
 */
+	position: {},
 	
 	initialize: function(options){
 		this.setOptions(options);
@@ -68,22 +67,7 @@ var Locate = new Class({
 	setPosition: function(position){
 		$clear(this.timeout);
 		
-		pos = {
-			latitude: position.coords.latitude,
-			longitude: position.coords.longitude,
-			accuracy: position.coords.accuracy, // specified in meters
-			altitude: position.coords.altitude, // null if not supported, meters above the WGS84 ellipsoid
-			altitudeAccuracy: position.coords.altitudeAccuracy, // specified in meters
-			heading: position.coords.heading, // null if not supported, specified in degrees counting clockwise to true nort
-			speed: position.coords.speed // null if not supported, specified in meters per second
-		};
-		
-		if(this.position)
-			$extend(this.position, pos);
-		else
-			this.position = pos;
-		
-		$extend(this.position, {
+		this.position = $merge(this.position, position.coords, {
 			cardinalDirection: this.cardinalDirection()
 		});
 		
