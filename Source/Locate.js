@@ -28,7 +28,7 @@ var Locate = new Class({
 	Implements: [Options, Events],
 	
 	options: {
-		loi: false, // loi = locate on init
+		loi: true, // loi = locate on init
 		loiType: 'locate', // locate OR watch
 		positionOptions: {
 			enableHighAccuracy: true, // may result in slower response times or increased power consumption if true
