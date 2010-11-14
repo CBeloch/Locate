@@ -83,6 +83,8 @@ var Locate = new Class({
 		$clear(this.timeout);
 		this.timeout = this.fireEvent.delay(this.options.positionOptions.timeout, this, ['error', { code: 3, message: 'Timeout' }]);
 		navigator.geolocation.getCurrentPosition(this.setPosition.bind(this), this.handleError.bind(this), this.options.positionOptions);
+		
+		return this;
 	},
 	
 	watcher: function(){
@@ -93,6 +95,8 @@ var Locate = new Class({
 			this.handleError.bind(this),
 			this.options.positionOptions
 		);
+		
+		return this;
 	},
 	
 	stopWatcher: function(){

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>Locate.Extras test</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="author" content="Matti Schneider-Ghibaudo"/>
+		<script language="javascript" type="text/javascript" src="mootools-1.2.4-core.js"></script>
+		<script language="javascript" type="text/javascript" src="Locate.js"></script>
+		<script language="javascript" type="text/javascript" src="Locate.Extras.js"></script>
+		
+		<style type="text/css">
+			#degrees {
+				width: 5em;
+				text-align: right;
+			}
+			
+			#degreesContainer, #numberFunctions {
+				float: left;
+				list-style-type: none;
+			}
+			
+			button {
+				font-family: monospace;
+			}
+			
+			hr {
+				clear: both;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Locate.Extras test</h1>
+		
+		<noscript>
+			<h2>Come on, you're supposed to test a Javascript class… Activate JS!!</h2>
+		</noscript>
+		
+		<div>
+			<span id="degreesContainer"><input type="text" id="degrees" value="45.5"/>°</span>
+			<ul id="numberFunctions">
+				<li>
+					<button onclick="convert()">.toRadians() = </button>
+					<input type="text" id="radians" value="" readonly="readonly"/>
+					rad
+				</li>
+				
+				<li>
+					<button onclick="cardinal()">.cardinalDirection() = </button>
+					<input type="text" id="cardinal" value="" readonly="readonly"/>
+				</li>
+			</ul>
+		</div>
+		
+		<hr/>
+		
+		<div id="inputs">
+			<button onclick="locate()">locator.locate()</button>
+			<br/>
+			<label>Timeout: <input type="text" id="timeout" value="10000"/></label>
+		</div>
+
+		<ol id="errors">
+			<!-- dynamically filled -->
+		</ol>
+		
+		<div>
+			<input type="text" id="distance" readonly="readonly"/>km to Paris
+		</div>
+		<hr/>
+		
+		<script type="text/javascript">
+		//<![CDATA[
+			var convert = function() {
+				$('radians').set('value',
+					$('degrees').get('value').toFloat().toRadians()
+				);
+			}
+			
+			var cardinal = function() {
+				$('cardinal').set('value',
+					$('degrees').get('value').toFloat().cardinalDirection()
+				);
+			}
+		
+			var locator;
+			
+			var locate = function() {
+				if (locator)
+					return locator.locate();
+					
+				$('timeout').set('disabled', 'disabled');
+				
+				locator = new Locate({
+					position: {
+						timeout: $('timeout').get('value').toInt()
+					},
+					onLocate: function(position) {
+						$('errors').grab(new Element('li', {
+							html: JSON.encode(position)
+						}));
+						$('distance').set('value', locator.distanceTo(48.856667, 2.350833))
+					},
+					onError: function(error) {
+						$('errors').grab(new Element('li', {
+							html: JSON.encode(error)
+						}));
+					}
+				}).locate();
+			}
+		//]]>
+		</script>
+	</body>
+</html>
