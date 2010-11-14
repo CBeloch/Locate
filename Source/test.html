@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>Locate class test</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="author" content="Matti Schneider-Ghibaudo"/>
+		<script language="javascript" type="text/javascript" src="mootools-1.2.4-core.js"></script>
+		<script language="javascript" type="text/javascript" src="Locate.js"></script>
+		<script language="javascript" type="text/javascript" src="Locate.Extras.js"></script>
+	</head>
+	<body>
+		<h1>Locate test</h1>
+		
+		<noscript>
+			<h2>Come on, you're supposed to test a Javascript class… Activate JS!!</h2>
+		</noscript>
+		
+		<div id="inputs">
+			<button onclick="locate()">Locate me!</button>
+			<br/>
+			<label>Timeout: <input type="text" id="timeout" value="10000"/></label>
+		</div>
+
+		<hr/>
+		
+		<dl>
+			<dt>Results:</dt>
+			<dd>
+				<ol id="results">
+					<!-- dynamically filled -->
+				</ol>
+			</dd>
+			<dt>Errors:</dt>
+			<dd>
+				<ol id="errors">
+					<!-- dynamically filled -->
+				</ol>
+			</dd>
+		</dl>
+		
+		<script type="text/javascript">
+		//<![CDATA[
+			var locator;
+			
+			var locate = function() {
+				if (locator)
+					return locator.locate();
+					
+				$('timeout').set('disabled', 'disabled');
+				
+				locator = new Locate({
+					position: {
+						timeout: $('timeout').get('value').toInt()
+					},
+					onLocate: function(position) {
+						$('results').grab(new Element('li', {
+							html: JSON.encode(position)
+						}));
+					},
+					onError: function(error) {
+						$('errors').grab(new Element('li', {
+							html: JSON.encode(error)
+						}));
+					}
+				}).locate();
+			}
+		//]]>
+		</script>
+	</body>
+</html>

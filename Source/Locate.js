@@ -39,7 +39,7 @@ var Locate = new Class({
 */
 	position: {},
 	
-	initialize: function(options){
+	initialize: function(options) {
 		this.setOptions(options);
 				
 		if (! navigator.geolocation) {
@@ -48,22 +48,20 @@ var Locate = new Class({
 		}
 	},
 	
-	setPosition: function(position){
+	setPosition: function(position) {
 		$clear(this.timeout);
-		
-		this.position = $merge(this.position, position.coords, {
-			cardinalDirection: this.cardinalDirection()
-		});
+
+		this.position = $merge(this.position, position.coords);
 		
 		this.fireEvent('locate', this.position);		
 	},
 	
-	handleError: function(error){
+	handleError: function(error) {
 		$clear(this.timeout);
 		this.fireEvent('error', error);
 	},
 	
-	locate: function(){
+	locate: function() {
 		$clear(this.timeout);
 		this.timeout = this.fireEvent.delay(this.options.position.timeout, this, ['error', { code: 3, message: 'Timeout' }]);
 		
@@ -72,43 +70,23 @@ var Locate = new Class({
 			this.handleError.bind(this),
 			this.options.position
 		);
+		
+		return this;
 	},
 	
-	observe: function(){
+	observe: function() {
 		this.watchId = navigator.geolocation.watchPosition(
 			this.setPosition.bind(this),
 			this.handleError.bind(this),
 			this.options.positionOptions
 		);
-	},
-	
-	stopObserving: function(){
-		this.watchId = navigator.geolocation.clearWatch(this.watchId);		
-	},
-	
-	cardinalDirection: function(){
-		if (! $defined(this.position.heading))
-			return null;
-			
-		var heading = this.position.heading % 360;
 		
-		if (heading <= 22.5)
-			return "N";
-		if (heading <= 67.5)
-			return "NE";
-		if (heading <= 112.5)
-			return "E";
-		if (heading <= 157.5)
-			return "SE";
-		if (heading <= 202.5)
-			return "S";
-		if (heading <= 247.5)
-			return "SW";
-		if (heading <= 292.5)
-			return "W";
-		if (heading <= 337.5)
-			return "NW";
-			
-		return "N";
+		return this;
+	},
+	
+	stopObserving: function() {
+		this.watchId = navigator.geolocation.clearWatch(this.watchId);
+		
+		return this;
 	}
 });
