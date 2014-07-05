@@ -21,9 +21,11 @@ Use Code like this:
 	#JS
 	var location = new Locate({
 		onLocate: function(position){
-			// Do stuff with the position data
+			alert('latitude: ' + position.latitude, '; longitude: ' + position.longitude + '; accuracy: ' + position.accuracy);
 		}
 	});
+	
+_See below for more details about `position` fields._
 
 Want to frequently get the position (watch your visitor move)? 
 
@@ -53,11 +55,11 @@ No problem, the function distanceTo() returns the distance in km:
 	var location = new Locate({
 		loiType: 'watch',
 		onLocate: function(position){
-			$("distance").set('html', this.distanceTo(37.3316591,-122.0301778));
+			$("distance").set('html', this.distanceTo(37.3316591, -122.0301778));
 		}
 	});
 
-position data
+Position data
 -------------
 
 The position data given with the event 'locate' looks like this:
